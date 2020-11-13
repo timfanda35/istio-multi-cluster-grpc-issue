@@ -8,6 +8,11 @@ So the virtual Service should use gateway `mesh`.
 
 # Prepare
 
+Reference document:
+- [Istio Replicated control planes](https://istio.io/latest/docs/setup/install/multicluster/gateways/)
+- [Using Istio to load-balance internal gRPC services](https://cloud.google.com/solutions/using-istio-for-internal-load-balancing-of-grpc-services)
+- [GoogleCloudPlatform/istio-samples](https://github.com/GoogleCloudPlatform/istio-samples)
+
 Create Google Cloud Platform project and enable APIs.
 
 Install [gcloud SDK](https://cloud.google.com/sdk/docs/install).
