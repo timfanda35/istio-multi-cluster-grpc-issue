@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-internal-ingressgateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - "*.cluster-2"
+    port:
+      name: tls
+      number: 15443
+      protocol: TLS
+    tls:
+      mode: AUTO_PASSTHROUGH

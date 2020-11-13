@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: istio-multicluster-ingressgateway
+  namespace: istio-system
+  labels:
+    app: istio-ingressgateway
+    istio: ingressgateway
+    release: istio
+spec:
+  workloadSelector:
+    labels:
+      istio: ingressgateway
+  configPatches:
+  - applyTo: NETWORK_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        portNumber: 15443
+        filterChain:
+          filter:
+            name: "envoy.filters.network.sni_cluster"
+    patch:
+      operation: INSERT_AFTER
+      value:
+        name: "envoy.filters.network.tcp_cluster_rewrite"
+        config:
+          cluster_pattern: "\\.cluster-2$"
+          cluster_replacement: ".svc.cluster.local"

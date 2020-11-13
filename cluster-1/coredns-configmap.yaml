@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns
+  namespace: istio-system
+  labels:
+    app: istiocoredns
+    release: istio
+data:
+  Corefile: |
+    cluster-2 {
+      grpc . 127.0.0.1:8053
+    }
+    .:53 {
+          errors
+          health
+
+          grpc global 127.0.0.1:8053
+
+          forward . /etc/resolv.conf {
+            except global
+          }
+
+          prometheus :9153
+          cache 30
+          reload
+        }
